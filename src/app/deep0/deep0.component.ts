@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -11,14 +11,16 @@ export class Deep0Component implements OnInit {
 
   private deep = 0;
   get getDeep(): string {
-    console.log(`CD - ${this.id} (deep : ${this.deep})`);
+    console.log(`%cCD - ${this.id} :`, 'color: #f05b5f');
+    console.log(this.elRef.nativeElement);
     return `Deep ${this.deep}`;
   }
 
-  constructor() { }
+  constructor(private elRef: ElementRef) { }
 
   ngOnInit(): void {
     this.id = uuidv4();
   }
 
+  click(): void { }
 }
