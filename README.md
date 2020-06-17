@@ -10,3 +10,5 @@ Le process de détection de changement peut être provoqué par le clic sur n'im
 
 Différents scénarios sont testables via différentes branches
   - **[Master](https://github.com/hugoMencoboni/angularChangeDetectionTests/tree/master)** représente le comportement par défaut. On y observe qu'**un événement  provoque le processus de détection de changements dans l'ensemble de l'arbre**, quelle que soit la profondeur du composant où l'événement a été déclenché.
+
+*Note: le projet a été forcé en mode "production" pour être plus proche de la stratégie appliquée. Angular procède en effet à une double vérification en mode "dev" pour s'assurer que la vue ne changement pas après un premier process de détection de changements.*
