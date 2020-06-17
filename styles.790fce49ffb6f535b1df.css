@@ -1,0 +1,1 @@
+body{font-family:cursive}body p{margin:5px}body button{background-color:transparent;border-radius:5px;border:1px solid #000;padding:10px;font-family:inherit;font-size:inherit}body .box{margin:5px;padding:5px;border:2px solid #000;border-radius:10px;text-align:center}body .grid{display:grid;grid-auto-flow:column;gap:10px}body .shy{opacity:.4}
