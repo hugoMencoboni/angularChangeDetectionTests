@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+body{
+    font-family: cursive;
+    font-size: larger;
+}
+
+.box {
+    margin: 5px;
+    padding: 20px;
+    border: 2px solid black;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.grid {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 10px
+}
