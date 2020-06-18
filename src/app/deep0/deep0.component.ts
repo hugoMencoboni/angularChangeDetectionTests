@@ -8,12 +8,13 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class Deep0Component implements OnInit {
   public id: string;
+  protected sufix;
 
   private deep = 0;
-  get getDeep(): string {
+  get title(): string {
     console.log(`%cCD - ${this.id} :`, 'color: #f05b5f');
     console.log(this.elRef.nativeElement);
-    return `Deep ${this.deep}`;
+    return `Deep ${this.deep}${this.sufix ? ` - ${this.sufix}` : ''}`;
   }
 
   constructor(private elRef: ElementRef) { }
