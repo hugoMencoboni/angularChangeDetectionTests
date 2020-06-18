@@ -8,7 +8,7 @@ import { Deep1Component } from '../deep1/deep1.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Deep1OnPushComponent extends Deep1Component {
-  get getDeep(): string {
-    return super.getDeep + ' - onPush';
+  get title(): string {
+    return super.title + ' - onPush';
   }
 }
