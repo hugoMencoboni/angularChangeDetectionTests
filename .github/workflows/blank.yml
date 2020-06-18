@@ -1,6 +1,12 @@
 name: Deploy to GitHub Pages via angular-cli-ghpages
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
+      - onPush/default
+      - onPush/subscriptions
+      - onPush/subscriptionsManagement
 
 jobs:
   build-and-deploy:
