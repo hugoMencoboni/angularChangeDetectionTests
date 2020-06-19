@@ -1,5 +1,6 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { StoreService } from 'src/app/store.service';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -8,16 +9,15 @@ import { v4 as uuidv4 } from 'uuid';
   templateUrl: './deep2.component.html',
   styleUrls: ['./deep2.component.scss']
 })
-export class Deep2Component implements OnInit, OnDestroy {
+export class Deep2Component implements OnInit {
   public id: string;
   protected sufix;
-  protected subscriptions = new Subscription();
 
   private deep = 2;
-  get title(): string {
+  get title(): Observable<string> {
     console.log(`%cCD - ${this.id} :`, 'color: #f2bf5c');
     console.log(this.elRef.nativeElement);
-    return `Deep ${this.deep}${this.sufix ? ` - ${this.sufix}` : ''}`;
+    return this.storeService.newSufix$().pipe(map(newSufix => `Deep ${this.deep}${newSufix ? ` - ${newSufix}` : ''}`));
   }
 
   @Input() triggerStore = false;
@@ -26,12 +26,6 @@ export class Deep2Component implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.id = uuidv4();
-
-    this.subscriptions.add(this.storeService.newSufix$().subscribe(newSufix => this.sufix = newSufix));
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
   }
 
   click(): void {

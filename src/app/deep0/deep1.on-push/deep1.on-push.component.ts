@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Deep1Component } from '../deep1/deep1.component';
 
 @Component({
@@ -8,7 +10,7 @@ import { Deep1Component } from '../deep1/deep1.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Deep1OnPushComponent extends Deep1Component {
-  get title(): string {
-    return super.title + ' - onPush';
+  get title(): Observable<string> {
+    return super.title.pipe(map(t => t + ' - onPush'));
   }
 }
