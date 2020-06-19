@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { StoreService } from 'src/app/store.service';
 import { v4 as uuidv4 } from 'uuid';
@@ -22,12 +22,15 @@ export class Deep2Component implements OnInit, OnDestroy {
 
   @Input() triggerStore = false;
 
-  constructor(private elRef: ElementRef, private storeService: StoreService) { }
+  constructor(private elRef: ElementRef, private storeService: StoreService, private ref: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.id = uuidv4();
 
-    this.subscriptions.add(this.storeService.newSufix$().subscribe(newSufix => this.sufix = newSufix));
+    this.subscriptions.add(this.storeService.newSufix$().subscribe(newSufix => {
+      this.sufix = newSufix;
+      this.ref.markForCheck();
+    }));
   }
 
   ngOnDestroy(): void {
