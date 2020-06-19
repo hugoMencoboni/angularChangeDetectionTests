@@ -1,4 +1,6 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { StoreService } from 'src/app/store.service';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -6,9 +8,10 @@ import { v4 as uuidv4 } from 'uuid';
   templateUrl: './deep2.component.html',
   styleUrls: ['./deep2.component.scss']
 })
-export class Deep2Component implements OnInit {
+export class Deep2Component implements OnInit, OnDestroy {
   public id: string;
   protected sufix;
+  protected subscriptions = new Subscription();
 
   private deep = 2;
   get title(): string {
@@ -17,11 +20,23 @@ export class Deep2Component implements OnInit {
     return `Deep ${this.deep}${this.sufix ? ` - ${this.sufix}` : ''}`;
   }
 
-  constructor(private elRef: ElementRef) { }
+  @Input() triggerStore = false;
+
+  constructor(private elRef: ElementRef, private storeService: StoreService) { }
 
   ngOnInit(): void {
     this.id = uuidv4();
+
+    this.subscriptions.add(this.storeService.newSufix$().subscribe(newSufix => this.sufix = newSufix));
   }
 
-  click(): void { }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
+  click(): void {
+    if (this.triggerStore) {
+      this.storeService.changeSufix(`store update fire by ${this.id}`);
+    }
+  }
 }

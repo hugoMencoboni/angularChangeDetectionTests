@@ -1,4 +1,6 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { StoreService } from 'src/app/store.service';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -6,9 +8,10 @@ import { v4 as uuidv4 } from 'uuid';
   templateUrl: './deep1.component.html',
   styleUrls: ['./deep1.component.scss']
 })
-export class Deep1Component implements OnInit {
+export class Deep1Component implements OnInit, OnDestroy {
   public id: string;
   protected sufix;
+  protected subscriptions = new Subscription();
 
   private deep = 1;
   get title(): string {
@@ -17,10 +20,16 @@ export class Deep1Component implements OnInit {
     return `Deep ${this.deep}${this.sufix ? ` - ${this.sufix}` : ''}`;
   }
 
-  constructor(private elRef: ElementRef) { }
+  constructor(private elRef: ElementRef, private storeService: StoreService) { }
 
   ngOnInit(): void {
     this.id = uuidv4();
+
+    this.subscriptions.add(this.storeService.newSufix$().subscribe(newSufix => this.sufix = newSufix));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   click(): void { }
