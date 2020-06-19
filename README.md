@@ -39,9 +39,9 @@ Mais elle nécessite également une gestion de toute autre ressource externe de 
 
 Il est nécessaire d'avoir une réflexion au cours d'un projet sur la nécessité de passer sur une telle stratégie. 
 
-Doit-on en amont géré tout composant comme pouvant être enfant d'un composant à stratégie OnPush et intégrer l'utilisation de **[MarkForCheck][MarkForCheckLink]** à la consommation de ressources externes ?
+Doit-on gérer tout composant comme pouvant potentiellement être enfant d'un composant à stratégie OnPush et intégrer l'utilisation de **[MarkForCheck][MarkForCheckLink]** à la consommation de ressources externes (souscriptions, timeOut, promises...) ?
 
-Doit-on favoriser l'utilisation du pipe async pour son automatisation de cette gestion du processus de détection de changement ?
+Doit-on favoriser l'utilisation du pipe async du fait qu'il automatise la gestion du processus de détection de changement ?
 
 Pour une meilleure compréhension de ces processus, vous pouvez vous reporter à **[ce très bon article de Michael Hoffmann.][CHArticleLink]**
 
